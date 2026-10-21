@@ -8,3 +8,12 @@ class TodoList {
         this.svg = svg;
     }
 }
+
+class Todo {
+    constructor(title, description, priority, notes) {
+        this.title = title;
+        this.description = description;
+        this.priority = priority;
+        this.notes = notes;
+    }
+}
