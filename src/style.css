@@ -12,6 +12,11 @@
     --priority-red: rgba(255, 0, 0, 0.85);
     --priority-orange: rgb(255, 165, 0);
     --green: rgb(0, 255, 0);
+    --teal: teal;
+    --green: green;
+    --purple: purple;
+    --orange: orange;
+    --blue: blue;
 }
 
 body {
@@ -35,6 +40,8 @@ header {
 svg {
     height: 100%;
     width: 100%;
+    fill: inherit;
+    stroke: inherit;
 }
 
 span {
@@ -211,4 +218,50 @@ dialog button {
     border-radius: 999px;
     color: white;
     background-color: black;
+}
+/* PROJECT COLORS */
+
+.orange.navigation-svg {
+    fill: var(--orange);
+    stroke: var(--orange);
+}
+
+div.orange {
+    border: 1px solid var(--orange);
+}
+
+.blue.navigation-svg {
+    fill: var(--blue);
+    stroke: var(--blue);
+}
+
+div.blue {
+    border: 1px solid var(--blue);
+}
+
+.teal.navigation-svg {
+    fill: var(--teal);
+    stroke: var(--teal);
+}
+
+div.teal {
+    border: 1px solid var(--teal);
+}
+
+.purple.navigation-svg {
+    fill: var(--purple);
+    stroke: var(--purple);
+}
+
+div.purple {
+    border: 1px solid var(--purple);
+}
+
+.green.navigation-svg {
+    fill: var(--green);
+    stroke: var(--green);
+}
+
+div.green {
+    border: 1px solid var(--green);
 }

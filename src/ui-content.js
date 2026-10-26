@@ -11,6 +11,7 @@ function renderNavigationContent(project, index) {
     
     //ADD CLASS NAME
     svgContainer.classList.add('navigation-svg');
+    svgContainer.classList.add(project.color);
     currentProject.classList.add(project.color);
 
     // ADD DATA ATTRIBUTE
@@ -98,14 +99,16 @@ function createProjectFormDisplay() {
                     <option value="">Choose a color</option>
                     <option value="orange">Orange</option>
                     <option value="teal">Teal</option>
-                    <option value="Purple">Purple</option>
+                    <option value="purple">Purple</option>
                 </select>
             </label>
             <label for="theme">Theme:
                 <select name="theme" class="theme">
                     <option value="">Choose a theme</option>
-                    <option value="">Work</option>
-                    <option value="">Grocery</option>
+                    <option value="0">Health</option>
+                    <option value="1">Work</option>
+                    <option value="2">Grocery</option>
+                    <option value="3">Private</option>
                 </select>
             </label>
             <button type="button">Save</button>
