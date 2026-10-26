@@ -41,4 +41,7 @@ personal.array.push(secondTodo);
 const thirdTodo = new Todo('This is the third one', 'what were you thinking?', 'High', 'LOLZ');
 personal.array.push(thirdTodo);
 
+const healthTodo = new Todo('I have to stay healthy so i guess that much is important', 'really important', 'Medium', 'I am gonna own the top of the world');
+health.array.push(healthTodo);
+
 export { projects };

@@ -1,11 +1,22 @@
 import './style.css'
 import { projects } from './todo.js'
 import { iterateArray, renderNavigationContent, renderTodoContent } from './ui-content.js'
+import { executeNavigationBoxClick, executeTodoBoxClick, executeDialogClick } from './event.js';
 
 // DISPLAY PROJECTS
-iterateArray(projects, renderNavigationContent);
+// iterateArray(projects, renderNavigationContent);
 
 // DISPLAY TODOS
-iterateArray(projects[0].array, renderTodoContent);
+// iterateArray(projects[0].array, renderTodoContent);
+
+// ADD EVENT LISTENERS
+const navigationBox = document.querySelector('.navigation-box');
+navigationBox.addEventListener('click', executeNavigationBoxClick);
+
+const dialog = document.querySelector('dialog');
+dialog.addEventListener('click', executeDialogClick);
+
+const todoBox = document.querySelector('.todo-box');
+todoBox.addEventListener('click', executeTodoBoxClick);
 
 // DONE AND DUSTED, NOW LET'S SEE HOW IT GOES AND PLAN FROM THERE
