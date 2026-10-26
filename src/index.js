@@ -3,6 +3,9 @@ import { projects } from './todo.js'
 import { iterateArray, renderNavigationContent, renderTodoContent } from './ui-content.js'
 import { executeNavigationBoxClick, executeTodoBoxClick, executeDialogClick } from './event.js';
 
+const button = document.querySelector('.todo-box [data-action]');
+button.dataset.index = '0';
+
 // DISPLAY PROJECTS
 // iterateArray(projects, renderNavigationContent);
 

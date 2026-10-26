@@ -81,7 +81,7 @@ const productivity = new TodoList('Productivity', 'green', productivitySVG);
 projects.push(productivity);
 
 // INITIALIZE PLACEBO TODO ITEM
-const firstTodo = new Todo('First in its bloodline', 'I reall am', 'High', 'This is my delusion, it is my reality');
+const firstTodo = new Todo('First in its bloodline', 'I really am', 'High', 'This is my delusion, it is my reality');
 personal.array.push(firstTodo);
 
 const secondTodo = new Todo('Imagination', 'The world has not imagined it yet', 'High', 'I am stoked man');

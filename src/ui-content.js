@@ -57,7 +57,6 @@ function iterateArray(array, currentCallback) {
     }
 }
 
-// THERE IS AN ERROR HERE I NEED TO GET RID OF, THESE ARE THE FORM CONTROLS FOR ADDING A TODO NOT A PROJECT
 function createTodoFormDisplay() {
     const dialog = document.querySelector('dialog');
     dialog.innerHTML = '';
