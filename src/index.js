@@ -7,10 +7,10 @@ const button = document.querySelector('.todo-box [data-action]');
 button.dataset.index = '0';
 
 // DISPLAY PROJECTS
-// iterateArray(projects, renderNavigationContent);
+iterateArray(projects, renderNavigationContent);
 
 // DISPLAY TODOS
-// iterateArray(projects[0].array, renderTodoContent);
+iterateArray(projects[0].array, renderTodoContent);
 
 // ADD EVENT LISTENERS
 const navigationBox = document.querySelector('.navigation-box');

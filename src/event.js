@@ -36,8 +36,6 @@ function executeTodoBoxClick(event) {
     }
     if (button.dataset.action === 'expand') {
         const todo = event.target.closest('[data-index][data-project-index]');
-        console.log(todo);
-        console.log(projects);
         expand(projects[Number(todo.dataset.projectIndex)].array[todo.dataset.index], todo);
         return;
     }
@@ -64,15 +62,13 @@ function executeDialogClick(event) {
         dialog.close();
     }
     if (button.dataset.add === 'todo') {
-        const title = document.querySelector('.title');
+        const title = document.querySelector('form .title');
         const description = document.querySelector('form .description');
-        const notes = document.querySelector('.notes');
-        const priority = document.querySelector('.priority');
+        const notes = document.querySelector('form .notes');
+        const priority = document.querySelector('form .priority');
         
-        console.log(description); console.log(description.value);
         const button = document.querySelector('.todo-box [data-action]');
         projects[Number(button.dataset.index)].array.push(new Todo(title.value, description.value, priority.value, notes.value));
-        console.log(projects);
         
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';

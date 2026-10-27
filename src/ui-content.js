@@ -151,7 +151,6 @@ function expand(todo, element) {
     notes.textContent = 'Notes:';
     notesDetails.textContent = todo.notes;
     priority.textContent = todo.priority;
-    console.log('I came in here');
 }
 
 export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand }
