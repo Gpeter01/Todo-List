@@ -27,6 +27,10 @@ function renderTodoContent(todo, index) {
     const title = document.createElement('h3');
     const description = document.createElement('p');
     const priority = document.createElement('p');
+    const buttonContainer = document.createElement('div');
+    const expandButton = document.createElement('button');
+
+    const button = document.querySelector('.todo-box [data-action]');
     
     //APPEND TO CONTAINER 
     const container = document.querySelector('.todo-container');
@@ -34,18 +38,24 @@ function renderTodoContent(todo, index) {
     currentTodo.appendChild(title);
     currentTodo.appendChild(description);
     currentTodo.appendChild(priority);
+    currentTodo.appendChild(buttonContainer);
+    buttonContainer.appendChild(expandButton);
     
     //ADD CLASS NAME
     priority.classList.add(todo.priority.toLowerCase());
+    priority.classList.add('priority');
     description.classList.add('description');
 
     // ADD DATA ATTRIBUTE
     currentTodo.dataset.index = index;
+    currentTodo.dataset.projectIndex = button.dataset.index;
+    expandButton.dataset.action = 'expand';
 
     //ADD CONTENT
     title.textContent = todo.title;
     description.textContent = todo.description;
     priority.textContent = todo.priority;
+    expandButton.textContent = 'Expand';
 }
 
 function iterateArray(array, currentCallback) {
@@ -116,4 +126,32 @@ function createProjectFormDisplay() {
     button.dataset.add = 'project';
 }
 
-export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay }
+function expand(todo, element) {
+    
+    const h3 = document.createElement('h3');
+    const description = document.createElement('h4');
+    const descriptionDetails = document.createElement('p');
+    const notes = document.createElement('h4');
+    const notesDetails = document.createElement('p');
+    const priority = document.createElement('p');
+    
+    element.innerHTML = '';
+    element.appendChild(h3);
+    element.appendChild(description);
+    element.appendChild(descriptionDetails);
+    element.appendChild(notes);
+    element.appendChild(notesDetails);
+    element.appendChild(priority);
+    
+    priority.classList.add('priority');
+    
+    h3.textContent = todo.title;
+    description.textContent = 'Description:';
+    descriptionDetails.textContent = todo.description;
+    notes.textContent = 'Notes:';
+    notesDetails.textContent = todo.notes;
+    priority.textContent = todo.priority;
+    console.log('I came in here');
+}
+
+export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand }

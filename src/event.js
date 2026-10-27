@@ -1,4 +1,4 @@
-import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray } from "./ui-content.js";
+import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand } from "./ui-content.js";
 import { projects, svgArray, TodoList, Todo } from "./todo.js";
 import { pushToStorage } from "./storage.js";
 
@@ -14,21 +14,31 @@ function executeNavigationBoxClick(event) {
     if (navElement) {
         const index = Number(navElement.dataset.index);
         const todoContainer = document.querySelector('.todo-container');
-        todoContainer.innerHTML = '';
-        iterateArray(projects[index].array, renderTodoContent);
-
         const button = document.querySelector('.todo-box [data-action]');
         button.dataset.index = index;
+
+        todoContainer.innerHTML = '';
+        iterateArray(projects[index].array, renderTodoContent);
         return;
     }
 }
 
 function executeTodoBoxClick(event) {
     const button = event.target.closest('[data-action]');
-    if (button) {
+    if (!button) {
+        return;
+    }
+    if (button.dataset.action === 'add') {
         const dialog = document.querySelector('dialog');
         dialog.showModal();
         createTodoFormDisplay();
+        return;
+    }
+    if (button.dataset.action === 'expand') {
+        const todo = event.target.closest('[data-index][data-project-index]');
+        console.log(todo);
+        console.log(projects);
+        expand(projects[Number(todo.dataset.projectIndex)].array[todo.dataset.index], todo);
         return;
     }
 }

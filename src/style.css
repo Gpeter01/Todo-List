@@ -127,14 +127,21 @@ nav > div, .todo-container > * {
 }
 
 h2 {
-    font-weight: 500;
     display: inline;
     line-height: 1.5;
 }
 
 h3 {
     font-size: 1.25rem;
+    line-height: 1.5;
+}
+
+h2, h3, h4 {
     font-weight: 500;
+}
+
+h4 {
+    line-height: 1.5;
 }
 
 .todo-container {
@@ -156,8 +163,15 @@ h3 {
     color: rgba(0, 0, 0, 0.8);
 }
 
-.priority {
+.expand p {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 1rem;
+}
+
+p.priority {
+    display: inline;
     font-weight: bold;
+    margin-bottom: 0;
 }
 
 dialog {
@@ -264,4 +278,14 @@ div.purple {
 
 div.green {
     border: 1px solid var(--green);
+}
+
+[data-index][data-project-index] > div {
+    width: 80%;
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
+[data-index][data-project-index] > div > button {
+    cursor: pointer;
 }
