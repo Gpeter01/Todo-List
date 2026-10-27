@@ -134,6 +134,8 @@ function expand(todo, element) {
     const notes = document.createElement('h4');
     const notesDetails = document.createElement('p');
     const priority = document.createElement('p');
+    const buttonContainer = document.createElement('div');
+    const expandButton = document.createElement('button');
     
     element.innerHTML = '';
     element.appendChild(h3);
@@ -142,8 +144,11 @@ function expand(todo, element) {
     element.appendChild(notes);
     element.appendChild(notesDetails);
     element.appendChild(priority);
+    element.appendChild(buttonContainer);
+    buttonContainer.appendChild(expandButton);
     
     priority.classList.add('priority');
+    expandButton.dataset.action = 'contract';
     
     h3.textContent = todo.title;
     description.textContent = 'Description:';
@@ -151,6 +156,38 @@ function expand(todo, element) {
     notes.textContent = 'Notes:';
     notesDetails.textContent = todo.notes;
     priority.textContent = todo.priority;
+    expandButton.textContent = 'Show Less';
 }
 
-export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand }
+function contract(todo, element) {
+    const title = document.createElement('h3');
+    const description = document.createElement('p');
+    const priority = document.createElement('p');
+    const buttonContainer = document.createElement('div');
+    const expandButton = document.createElement('button');
+
+    const button = document.querySelector('.todo-box [data-action]');
+
+    element.innerHTML = '';
+    element.appendChild(title);
+    element.appendChild(description);
+    element.appendChild(priority);
+    element.appendChild(buttonContainer);
+    buttonContainer.appendChild(expandButton);
+    
+    //ADD CLASS NAME
+    priority.classList.add(todo.priority.toLowerCase());
+    priority.classList.add('priority');
+    description.classList.add('description');
+
+    // ADD DATA ATTRIBUTE
+    expandButton.dataset.action = 'expand';
+
+    //ADD CONTENT
+    title.textContent = todo.title;
+    description.textContent = todo.description;
+    priority.textContent = todo.priority;
+    expandButton.textContent = 'Expand';
+}
+
+export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract }

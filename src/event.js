@@ -1,4 +1,4 @@
-import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand } from "./ui-content.js";
+import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand, contract } from "./ui-content.js";
 import { projects, svgArray, TodoList, Todo } from "./todo.js";
 import { pushToStorage } from "./storage.js";
 
@@ -37,6 +37,11 @@ function executeTodoBoxClick(event) {
     if (button.dataset.action === 'expand') {
         const todo = event.target.closest('[data-index][data-project-index]');
         expand(projects[Number(todo.dataset.projectIndex)].array[todo.dataset.index], todo);
+        return;
+    }
+    if (button.dataset.action === 'contract') {
+        const todo = event.target.closest('[data-index][data-project-index]');
+        contract(projects[Number(todo.dataset.projectIndex)].array[todo.dataset.index], todo);
         return;
     }
 }
