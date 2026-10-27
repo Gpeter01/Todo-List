@@ -53,7 +53,9 @@ const privateSVG = `<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/
 </svg>`;
 
 const svgArray = [healthSVG, workSVG, grocerySVG, privateSVG];
-const projects = [];
+
+// PROJECTS ARRAY
+let projects = [];
 
 class TodoList {
     array = [];
@@ -74,23 +76,36 @@ class Todo {
 }
 
 
-//INITIALISE DEFAULT PROJECTS
-const personal = new TodoList('Personal', 'blue', personalSVG);
-projects.push(personal);
-const productivity = new TodoList('Productivity', 'green', productivitySVG);
-projects.push(productivity);
+function initialiseProjects() {
+	//INITIALISE DEFAULT PROJECTS
+	const personal = new TodoList('Personal', 'blue', personalSVG);
+	projects.push(personal);
+	const productivity = new TodoList('Productivity', 'green', productivitySVG);
+	projects.push(productivity);
 
-// INITIALIZE PLACEBO TODO ITEM
-const firstTodo = new Todo('First in its bloodline', 'I really am', 'High', 'This is my delusion, it is my reality');
-personal.array.push(firstTodo);
+	// INITIALIZE PLACEBO TODO ITEM
+	const firstTodo = new Todo('First in its bloodline', 'I really am', 'High', 'This is my delusion, it is my reality');
+	personal.array.push(firstTodo);
 
-const secondTodo = new Todo('Imagination', 'The world has not imagined it yet', 'High', 'I am stoked man');
-personal.array.push(secondTodo);
+	const secondTodo = new Todo('Imagination', 'The world has not imagined it yet', 'High', 'I am stoked man');
+	personal.array.push(secondTodo);
 
-const thirdTodo = new Todo('This is the third one', 'what were you thinking?', 'High', 'LOLZ');
-personal.array.push(thirdTodo);
+	const thirdTodo = new Todo('This is the third one', 'what were you thinking?', 'High', 'LOLZ');
+	personal.array.push(thirdTodo);
 
-const productivityTodo = new Todo('I have to stay healthy so i guess that much is important', 'really important', 'Medium', 'I am gonna own the top of the world');
-productivity.array.push(productivityTodo);
+	const productivityTodo = new Todo('I have to stay healthy so i guess that much is important', 'really important', 'Medium', 'I am gonna own the top of the world');
+	productivity.array.push(productivityTodo);
+}
+
+function populate() {
+	if (localStorage.length == 0) {
+		initialiseProjects();
+		return;
+	}
+	projects = JSON.parse(localStorage.getItem('storage'));
+}
+
+populate();
+
 
 export { projects, svgArray, TodoList, Todo };

@@ -1,5 +1,6 @@
 import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray } from "./ui-content.js";
 import { projects, svgArray, TodoList, Todo } from "./todo.js";
+import { pushToStorage } from "./storage.js";
 
 function executeNavigationBoxClick(event) {
     const button = event.target.closest('[data-action]');
@@ -46,6 +47,7 @@ function executeDialogClick(event) {
         const navigationContainer = document.querySelector('nav');
         navigationContainer.innerHTML = '';
         iterateArray(projects, renderNavigationContent);
+        pushToStorage();
         
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
@@ -65,7 +67,8 @@ function executeDialogClick(event) {
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
         iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
-
+        pushToStorage();
+        
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
         dialog.close();
