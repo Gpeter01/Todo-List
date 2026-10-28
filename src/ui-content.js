@@ -1,3 +1,5 @@
+import { projects } from "./todo.js";
+
 function renderNavigationContent(project, index) {
     const currentProject = document.createElement('div');
     const svgContainer = document.createElement('span');
@@ -30,6 +32,7 @@ function renderTodoContent(todo, index) {
     const buttonContainer = document.createElement('div');
     const expandButton = document.createElement('button');
     const deleteButton = document.createElement('button');
+    const editButton = document.createElement('button');
 
     const button = document.querySelector('.todo-box [data-action]');
     
@@ -42,6 +45,7 @@ function renderTodoContent(todo, index) {
     currentTodo.appendChild(buttonContainer);
     buttonContainer.appendChild(expandButton);
     buttonContainer.appendChild(deleteButton);
+    buttonContainer.appendChild(editButton);
     
     //ADD CLASS NAME
     priority.classList.add(todo.priority.toLowerCase());
@@ -53,13 +57,15 @@ function renderTodoContent(todo, index) {
     currentTodo.dataset.projectIndex = button.dataset.index;
     expandButton.dataset.action = 'expand';
     deleteButton.dataset.action = 'delete';
-    deleteButton.textContent = 'Delete';
-
+    editButton.dataset.action = 'edit';
+    
     //ADD CONTENT
     title.textContent = todo.title;
     description.textContent = todo.description;
     priority.textContent = todo.priority;
     expandButton.textContent = 'Expand';
+    deleteButton.textContent = 'Delete';
+    editButton.textContent = 'Edit';
 }
 
 function iterateArray(array, currentCallback) {
@@ -140,7 +146,8 @@ function expand(todo, element) {
     const buttonContainer = document.createElement('div');
     const expandButton = document.createElement('button');
     const deleteButton = document.createElement('button');
-    
+    const editButton = document.createElement('button');
+
     element.innerHTML = '';
     element.appendChild(h3);
     element.appendChild(description);
@@ -155,6 +162,7 @@ function expand(todo, element) {
     priority.classList.add('priority');
     expandButton.dataset.action = 'contract';
     deleteButton.dataset.action = 'delete';
+    editButton.dataset.action = 'edit';
 
     
     h3.textContent = todo.title;
@@ -165,6 +173,7 @@ function expand(todo, element) {
     priority.textContent = todo.priority;
     expandButton.textContent = 'Show Less';
     deleteButton.textContent = 'Delete';
+    editButton.textContent = 'Edit';
 }
 
 function contract(todo, element) {
@@ -174,6 +183,8 @@ function contract(todo, element) {
     const buttonContainer = document.createElement('div');
     const expandButton = document.createElement('button');
     const deleteButton = document.createElement('button');
+    const editButton = document.createElement('button');
+
 
     const button = document.querySelector('.todo-box [data-action]');
 
@@ -193,6 +204,7 @@ function contract(todo, element) {
     // ADD DATA ATTRIBUTE
     expandButton.dataset.action = 'expand';
     deleteButton.dataset.action = 'delete';
+    editButton.dataset.action = 'edit';
 
     //ADD CONTENT
     title.textContent = todo.title;
@@ -200,6 +212,28 @@ function contract(todo, element) {
     priority.textContent = todo.priority;
     expandButton.textContent = 'Expand';
     deleteButton.textContent = 'Delete';
+    editButton.textContent = 'Edit';
 }
 
-export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract }
+function editTodo(index, parentIndex) {
+    createTodoFormDisplay();
+    const header = document.querySelector('dialog h2');
+    header.textContent = 'Edit todo';
+
+    const title = document.querySelector('form .title');
+    const description = document.querySelector('form .description');
+    const notes = document.querySelector('form .notes');
+    const priority = document.querySelector('form .priority');
+    
+    const currentTodo = projects[parentIndex].array[index];
+    title.value = currentTodo.title;
+    description.value = currentTodo.description;
+    notes.value = currentTodo.notes;
+    priority.value = currentTodo.priority;
+
+    const button = document.querySelector('form button');
+    button.dataset.add = 'edit';
+    button.dataset.editIndex = index;
+}
+
+export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract, editTodo }

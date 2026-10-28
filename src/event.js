@@ -1,4 +1,4 @@
-import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand, contract } from "./ui-content.js";
+import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand, contract, editTodo } from "./ui-content.js";
 import { projects, svgArray, TodoList, Todo } from "./todo.js";
 import { pushToStorage } from "./storage.js";
 
@@ -46,18 +46,25 @@ function executeTodoBoxClick(event) {
     }
     if (button.dataset.action === 'delete') {
         const todo = event.target.closest('[data-index][data-project-index]');
-        console.log(projects);
         projects[Number(todo.dataset.projectIndex)].array.splice(Number(todo.dataset.index), 1);
-        console.log(projects);
         pushToStorage();
         
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
         iterateArray(projects[Number(todo.dataset.projectIndex)].array, renderTodoContent);
     }
+    if (button.dataset.action === 'edit') {
+        const todo = event.target.closest('[data-index][data-project-index]');
+        editTodo(Number(todo.dataset.index), Number(todo.dataset.projectIndex));
+
+        const dialog = document.querySelector('dialog');
+        dialog.showModal();
+    }
 }
 
 function executeDialogClick(event) {
+    event.preventDefault();
+    
     const button = event.target.closest('[data-add]')
     if (!button) {
         return;
@@ -77,12 +84,12 @@ function executeDialogClick(event) {
         const dialog = document.querySelector('dialog');
         dialog.close();
     }
+    const title = document.querySelector('form .title');
+    const description = document.querySelector('form .description');
+    const notes = document.querySelector('form .notes');
+    const priority = document.querySelector('form .priority');
+
     if (button.dataset.add === 'todo') {
-        const title = document.querySelector('form .title');
-        const description = document.querySelector('form .description');
-        const notes = document.querySelector('form .notes');
-        const priority = document.querySelector('form .priority');
-        
         const button = document.querySelector('.todo-box [data-action]');
         projects[Number(button.dataset.index)].array.push(new Todo(title.value, description.value, priority.value, notes.value));
         
@@ -94,7 +101,21 @@ function executeDialogClick(event) {
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
         dialog.close();
-
+        
+    }
+    if (button.dataset.add === 'edit') {
+        const button = document.querySelector('.todo-box [data-action]');
+        const formButton = document.querySelector('form button');
+        projects[Number(button.dataset.index)].array[formButton.dataset.editIndex] = new Todo(title.value, description.value, priority.value, notes.value);
+        
+        const todoContainer = document.querySelector('.todo-container');
+        todoContainer.innerHTML = '';
+        pushToStorage();
+        iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
+        
+        // CLOSE DIALOG
+        const dialog = document.querySelector('dialog');
+        dialog.close();
     }
 }
 
