@@ -29,6 +29,7 @@ function renderTodoContent(todo, index) {
     const priority = document.createElement('p');
     const buttonContainer = document.createElement('div');
     const expandButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
 
     const button = document.querySelector('.todo-box [data-action]');
     
@@ -40,6 +41,7 @@ function renderTodoContent(todo, index) {
     currentTodo.appendChild(priority);
     currentTodo.appendChild(buttonContainer);
     buttonContainer.appendChild(expandButton);
+    buttonContainer.appendChild(deleteButton);
     
     //ADD CLASS NAME
     priority.classList.add(todo.priority.toLowerCase());
@@ -50,6 +52,8 @@ function renderTodoContent(todo, index) {
     currentTodo.dataset.index = index;
     currentTodo.dataset.projectIndex = button.dataset.index;
     expandButton.dataset.action = 'expand';
+    deleteButton.dataset.action = 'delete';
+    deleteButton.textContent = 'Delete';
 
     //ADD CONTENT
     title.textContent = todo.title;
@@ -127,7 +131,6 @@ function createProjectFormDisplay() {
 }
 
 function expand(todo, element) {
-    
     const h3 = document.createElement('h3');
     const description = document.createElement('h4');
     const descriptionDetails = document.createElement('p');
@@ -136,6 +139,7 @@ function expand(todo, element) {
     const priority = document.createElement('p');
     const buttonContainer = document.createElement('div');
     const expandButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
     
     element.innerHTML = '';
     element.appendChild(h3);
@@ -146,9 +150,12 @@ function expand(todo, element) {
     element.appendChild(priority);
     element.appendChild(buttonContainer);
     buttonContainer.appendChild(expandButton);
+    buttonContainer.appendChild(deleteButton);
     
     priority.classList.add('priority');
     expandButton.dataset.action = 'contract';
+    deleteButton.dataset.action = 'delete';
+
     
     h3.textContent = todo.title;
     description.textContent = 'Description:';
@@ -157,6 +164,7 @@ function expand(todo, element) {
     notesDetails.textContent = todo.notes;
     priority.textContent = todo.priority;
     expandButton.textContent = 'Show Less';
+    deleteButton.textContent = 'Delete';
 }
 
 function contract(todo, element) {
@@ -165,6 +173,7 @@ function contract(todo, element) {
     const priority = document.createElement('p');
     const buttonContainer = document.createElement('div');
     const expandButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
 
     const button = document.querySelector('.todo-box [data-action]');
 
@@ -174,20 +183,23 @@ function contract(todo, element) {
     element.appendChild(priority);
     element.appendChild(buttonContainer);
     buttonContainer.appendChild(expandButton);
+    buttonContainer.appendChild(deleteButton);
     
     //ADD CLASS NAME
     priority.classList.add(todo.priority.toLowerCase());
     priority.classList.add('priority');
     description.classList.add('description');
-
+    
     // ADD DATA ATTRIBUTE
     expandButton.dataset.action = 'expand';
+    deleteButton.dataset.action = 'delete';
 
     //ADD CONTENT
     title.textContent = todo.title;
     description.textContent = todo.description;
     priority.textContent = todo.priority;
     expandButton.textContent = 'Expand';
+    deleteButton.textContent = 'Delete';
 }
 
 export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract }

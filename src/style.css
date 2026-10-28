@@ -281,9 +281,10 @@ div.green {
 }
 
 [data-index][data-project-index] > div {
-    width: 80%;
+    width: 90%;
     display: inline-flex;
     justify-content: flex-end;
+    gap: 1.5rem;
 }
 
 [data-index][data-project-index] > div > button {

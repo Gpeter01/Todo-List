@@ -44,6 +44,17 @@ function executeTodoBoxClick(event) {
         contract(projects[Number(todo.dataset.projectIndex)].array[todo.dataset.index], todo);
         return;
     }
+    if (button.dataset.action === 'delete') {
+        const todo = event.target.closest('[data-index][data-project-index]');
+        console.log(projects);
+        projects[Number(todo.dataset.projectIndex)].array.splice(Number(todo.dataset.index), 1);
+        console.log(projects);
+        pushToStorage();
+        
+        const todoContainer = document.querySelector('.todo-container');
+        todoContainer.innerHTML = '';
+        iterateArray(projects[Number(todo.dataset.projectIndex)].array, renderTodoContent);
+    }
 }
 
 function executeDialogClick(event) {
@@ -59,8 +70,8 @@ function executeDialogClick(event) {
         projects.push(new TodoList(projectName.value, color.value, svgArray[Number(theme.value)]));
         const navigationContainer = document.querySelector('nav');
         navigationContainer.innerHTML = '';
-        iterateArray(projects, renderNavigationContent);
         pushToStorage();
+        iterateArray(projects, renderNavigationContent);
         
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
@@ -77,8 +88,8 @@ function executeDialogClick(event) {
         
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
-        iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
         pushToStorage();
+        iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
         
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
