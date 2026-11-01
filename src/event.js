@@ -62,10 +62,20 @@ function executeTodoBoxClick(event) {
     }
 }
 
+function closeDialog(event) {
+    const cancelButton = event.target.closest("[data-action]");
+    if (!cancelButton) {
+        return;
+    }
+    if (cancelButton) {
+        const dialog = document.querySelector('dialog');
+        dialog.close();
+    }
+}
+
 function executeDialogClick(event) {
     event.preventDefault();
-    
-    const button = event.target.closest('[data-add]')
+    const button = event.target.closest('[data-add]');
     if (!button) {
         return;
     }
@@ -119,4 +129,4 @@ function executeDialogClick(event) {
     }
 }
 
-export {executeNavigationBoxClick, executeDialogClick, executeTodoBoxClick }
+export {executeNavigationBoxClick, executeDialogClick, executeTodoBoxClick, closeDialog }

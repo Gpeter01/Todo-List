@@ -1,7 +1,7 @@
 import './style.css'
 import { projects } from './todo.js'
 import { iterateArray, renderNavigationContent, renderTodoContent } from './ui-content.js'
-import { executeNavigationBoxClick, executeTodoBoxClick, executeDialogClick } from './event.js';
+import { executeNavigationBoxClick, executeTodoBoxClick, executeDialogClick, closeDialog } from './event.js';
 
 const button = document.querySelector('.todo-box [data-action]');
 button.dataset.index = '0';
@@ -18,6 +18,7 @@ navigationBox.addEventListener('click', executeNavigationBoxClick);
 
 const dialog = document.querySelector('dialog');
 dialog.addEventListener('click', executeDialogClick);
+dialog.addEventListener('click', closeDialog);
 
 const todoBox = document.querySelector('.todo-box');
 todoBox.addEventListener('click', executeTodoBoxClick);

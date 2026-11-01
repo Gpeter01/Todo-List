@@ -78,9 +78,22 @@ function iterateArray(array, currentCallback) {
 }
 
 function createTodoFormDisplay() {
+    const exitSVG = `<svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>cancel</title>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="work-case" fill="#000000" transform="translate(91.520000, 91.520000)">
+                <polygon id="Close" points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48">
+
+    </polygon>
+            </g>
+        </g>
+    </svg>`;
     const dialog = document.querySelector('dialog');
     dialog.innerHTML = '';
     dialog.innerHTML = `<form action="">
+            <div class='dialog-exit-container'>
+                <button class='exit'>${exitSVG}</button>
+            </div>
             <h2>Add a new todo</h2>
             <label for="title">Title:
                 <input type="text" name="title" class='title' placeholder="Grocery">
@@ -98,17 +111,32 @@ function createTodoFormDisplay() {
                     <option value="Low">Low</option>
                 </select>
             </label>
-            <button type="button">Save</button>
+            <button class='save' type="button">Save</button>
         </form>`;
 
-    const button = document.querySelector('form button');
+    const cancelButton = document.querySelector('.exit');
+    cancelButton.dataset.action = 'exit';
+    const button = document.querySelector('.save');
     button.dataset.add = 'todo';
 }
 
 function createProjectFormDisplay() {
+    const exitSVG = `<svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>cancel</title>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="work-case" fill="#000000" transform="translate(91.520000, 91.520000)">
+                <polygon id="Close" points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48">
+
+    </polygon>
+            </g>
+        </g>
+    </svg>`;
     const dialog = document.querySelector('dialog');
     dialog.innerHTML = '';
     dialog.innerHTML = ` <form action="">
+            <div class='dialog-exit-container'>
+                <button class='exit'>${exitSVG}</button>
+            </div>
             <h2>Add a project</h2>
             <label for="name">Name:
                 <input type="text" class="name" name="name">
@@ -130,9 +158,11 @@ function createProjectFormDisplay() {
                     <option value="3">Private</option>
                 </select>
             </label>
-            <button type="button">Save</button>
+            <button class='save' type="button">Save</button>
         </form>`;
-    const button = document.querySelector('form button');
+    const cancelButton = document.querySelector('.exit');
+    cancelButton.dataset.action = 'exit';
+    const button = document.querySelector('.save');
     button.dataset.add = 'project';
 }
 
