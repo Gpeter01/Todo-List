@@ -158,6 +158,7 @@ function expand(todo, element) {
     element.appendChild(buttonContainer);
     buttonContainer.appendChild(expandButton);
     buttonContainer.appendChild(deleteButton);
+    buttonContainer.appendChild(editButton);
     
     priority.classList.add('priority');
     expandButton.dataset.action = 'contract';
@@ -195,6 +196,7 @@ function contract(todo, element) {
     element.appendChild(buttonContainer);
     buttonContainer.appendChild(expandButton);
     buttonContainer.appendChild(deleteButton);
+    buttonContainer.appendChild(editButton);
     
     //ADD CLASS NAME
     priority.classList.add(todo.priority.toLowerCase());
