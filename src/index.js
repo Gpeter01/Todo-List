@@ -1,7 +1,7 @@
 import './style.css'
 import { projects } from './todo.js'
 import { iterateArray, renderNavigationContent, getCurrentPage } from './ui-content.js'
-import { executeNavigationBoxClick, executeTodoBoxClick, executeDialogClick, closeDialog, executeEnterClick } from './event.js';
+import { executeNavigationBoxClick, executeTodoBoxClick, executeDialogClick, closeDialog, executeEnterClick, getAbout} from './event.js';
 
 // DISPLAY PROJECTS
 iterateArray(projects, renderNavigationContent);
@@ -21,5 +21,8 @@ dialog.addEventListener('click', executeDialogClick);
 const todoBox = document.querySelector('.todo-box');
 todoBox.addEventListener('click', executeTodoBoxClick);
 todoBox.addEventListener('keydown', executeEnterClick);
+
+const header = document.querySelector('header');
+header.addEventListener('click', getAbout)
 
 // DONE AND DUSTED, NOW LET'S SEE HOW IT GOES AND PLAN FROM THERE

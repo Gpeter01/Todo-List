@@ -1,4 +1,4 @@
-import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand, contract, editTodo } from "./ui-content.js";
+import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand, contract, editTodo, aboutThisProject } from "./ui-content.js";
 import { projects, svgArray, TodoList, Todo } from "./todo.js";
 import { pushToStorage } from "./storage.js";
 
@@ -78,10 +78,8 @@ function closeDialog(event) {
     if (!cancelButton) {
         return;
     }
-    if (cancelButton) {
-        const dialog = document.querySelector('dialog');
-        dialog.close();
-    }
+    const dialog = document.querySelector('dialog');
+    dialog.close();
 }
 
 function executeDialogClick(event) {
@@ -138,6 +136,13 @@ function executeDialogClick(event) {
         const dialog = document.querySelector('dialog');
         dialog.close();
     }
+    if (button.dataset.add === 'reset') {
+        localStorage.clear();
+
+        // CLOSE DIALOG
+        const dialog = document.querySelector('dialog');
+        dialog.close();
+    }
 }
 
 function executeEnterClick(event) {
@@ -147,4 +152,14 @@ function executeEnterClick(event) {
     event.preventDefault();
 }
 
-export {executeNavigationBoxClick, executeDialogClick, executeTodoBoxClick, closeDialog, executeEnterClick }
+function getAbout(event) {
+    const aboutButton = event.target.closest('.about');
+    if (!aboutButton) {
+        return;
+    }
+    const dialog = document.querySelector('dialog');
+    aboutThisProject();
+    dialog.showModal();
+}
+
+export {executeNavigationBoxClick, executeDialogClick, executeTodoBoxClick, closeDialog, executeEnterClick, getAbout }

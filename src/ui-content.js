@@ -284,4 +284,32 @@ function getCurrentPage() {
     iterateArray(projects[currentIndex].array, renderTodoContent);
 }
 
-export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract, editTodo, getCurrentPage }
+function aboutThisProject() {
+    const exitSVG = `<svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>cancel</title>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="work-case" fill="#000000" transform="translate(91.520000, 91.520000)">
+                <polygon id="Close" points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48">
+
+    </polygon>
+            </g>
+        </g>
+    </svg>`;
+    const dialog = document.querySelector('dialog');
+    dialog.innerHTML = ` 
+        <div class='dialog-exit-container'>
+                <button type='button' class='exit'>${exitSVG}</button>
+        </div>
+        <h2>About this project</h2>
+        <p>This is a really amazing project, it's a really nice todolist. It has room to grow.</p>
+        <p>The svgs you see here are gotten from .....</p>
+        <p>To reset the todolist app to factory setting, click below. Be careful, there is no going back.</p>
+        <button class="reset">Reset to factory setting</button>`;
+
+    const cancelButton = document.querySelector('.exit');
+    cancelButton.dataset.action = 'exit';
+
+    const resetButton = document.querySelector('.reset');
+    resetButton.dataset.add = 'reset';
+}
+export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract, editTodo, getCurrentPage, aboutThisProject }
