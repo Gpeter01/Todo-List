@@ -1,16 +1,12 @@
 import './style.css'
 import { projects } from './todo.js'
-import { iterateArray, renderNavigationContent, renderTodoContent } from './ui-content.js'
+import { iterateArray, renderNavigationContent, getCurrentPage } from './ui-content.js'
 import { executeNavigationBoxClick, executeTodoBoxClick, executeDialogClick, closeDialog, executeEnterClick } from './event.js';
-
-const button = document.querySelector('.todo-box [data-action]');
-button.dataset.index = '0';
 
 // DISPLAY PROJECTS
 iterateArray(projects, renderNavigationContent);
 
-// DISPLAY TODOS
-iterateArray(projects[0].array, renderTodoContent);
+getCurrentPage();
 
 // ADD EVENT LISTENERS
 const navigationBox = document.querySelector('.navigation-box');

@@ -20,6 +20,9 @@ function executeNavigationBoxClick(event) {
         const button = document.querySelector('.todo-box [data-action]');
         button.dataset.index = index;
 
+        // PUSH TO STORAGE
+        pushToStorage('currentPage', index);
+
         todoContainer.innerHTML = '';
         iterateArray(projects[index].array, renderTodoContent);
         return;
@@ -53,7 +56,7 @@ function executeTodoBoxClick(event) {
     if (button.dataset.action === 'delete') {
         const todo = event.target.closest('[data-index][data-project-index]');
         projects[Number(todo.dataset.projectIndex)].array.splice(Number(todo.dataset.index), 1);
-        pushToStorage();
+        pushToStorage('storage', projects);
         
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
@@ -82,7 +85,6 @@ function closeDialog(event) {
 }
 
 function executeDialogClick(event) {
-    event.preventDefault();
     const button = event.target.closest('[data-add]');
     if (!button) {
         return;
@@ -95,7 +97,7 @@ function executeDialogClick(event) {
         projects.push(new TodoList(projectName.value, color.value, svgArray[Number(theme.value)]));
         const navigationContainer = document.querySelector('nav');
         navigationContainer.innerHTML = '';
-        pushToStorage();
+        pushToStorage('storage', projects);
         iterateArray(projects, renderNavigationContent);
         
         // CLOSE DIALOG
@@ -113,7 +115,7 @@ function executeDialogClick(event) {
         
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
-        pushToStorage();
+        pushToStorage('storage', projects);
         iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
         
         // CLOSE DIALOG
@@ -123,12 +125,13 @@ function executeDialogClick(event) {
     }
     if (button.dataset.add === 'edit') {
         const button = document.querySelector('.todo-box [data-action]');
-        const formButton = document.querySelector('form button');
+        const formButton = document.querySelector('.save');
+        
         projects[Number(button.dataset.index)].array[formButton.dataset.editIndex] = new Todo(title.value, description.value, priority.value, notes.value);
         
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
-        pushToStorage();
+        pushToStorage('storage', projects);
         iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
         
         // CLOSE DIALOG
@@ -138,10 +141,10 @@ function executeDialogClick(event) {
 }
 
 function executeEnterClick(event) {
-    event.preventDefault();
-    if (event.key === 'Enter') {
+    if (event.key !== 'Enter') {
         return;
     }
+    event.preventDefault();
 }
 
 export {executeNavigationBoxClick, executeDialogClick, executeTodoBoxClick, closeDialog, executeEnterClick }

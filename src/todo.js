@@ -98,7 +98,7 @@ function initialiseProjects() {
 }
 
 function populate() {
-	if (localStorage.length == 0) {
+	if (localStorage.getItem('storage') == null) {
 		initialiseProjects();
 		return;
 	}

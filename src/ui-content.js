@@ -263,9 +263,25 @@ function editTodo(index, parentIndex) {
     notes.value = currentTodo.notes;
     priority.value = currentTodo.priority;
 
-    const button = document.querySelector('form button');
+    const button = document.querySelector('.save');
+    button.textContent = 'Save Changes';
     button.dataset.add = 'edit';
     button.dataset.editIndex = index;
 }
 
-export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract, editTodo }
+function getCurrentPage() {
+    const button = document.querySelector('.todo-box [data-action]');
+    if (localStorage.getItem('currentPage') == null) {
+        button.dataset.index = '0';
+
+        // DISPLAY TODOS
+        // DEFAULT PROJECT SHOULD BE PERSONAL FOR THIS CASE
+        iterateArray(projects[0].array, renderTodoContent);
+        return;
+    }
+    const currentIndex = JSON.parse(localStorage.getItem('currentPage'));
+    button.dataset.index = currentIndex;
+    iterateArray(projects[currentIndex].array, renderTodoContent);
+}
+
+export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract, editTodo, getCurrentPage }

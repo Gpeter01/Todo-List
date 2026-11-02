@@ -1,8 +1,8 @@
 import { projects } from "./todo.js";
 
-function pushToStorage() {
+function pushToStorage(prop, value) {
     if (checkStorageAvailability()) {
-        localStorage.setItem('storage', JSON.stringify(projects));
+        localStorage.setItem(prop, JSON.stringify(value));
     }
 }
 
