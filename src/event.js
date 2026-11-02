@@ -8,6 +8,9 @@ function executeNavigationBoxClick(event) {
         const dialog = document.querySelector('dialog');
         dialog.showModal();
         createProjectFormDisplay();
+
+        const projectName = document.querySelector('.name');
+        projectName.focus();
         return;
     }
     const navElement = event.target.closest('[data-index]');
@@ -32,6 +35,9 @@ function executeTodoBoxClick(event) {
         const dialog = document.querySelector('dialog');
         dialog.showModal();
         createTodoFormDisplay();
+
+        const title = document.querySelector('.title');
+        title.focus();
         return;
     }
     if (button.dataset.action === 'expand') {
@@ -56,9 +62,11 @@ function executeTodoBoxClick(event) {
     if (button.dataset.action === 'edit') {
         const todo = event.target.closest('[data-index][data-project-index]');
         editTodo(Number(todo.dataset.index), Number(todo.dataset.projectIndex));
-
+        
         const dialog = document.querySelector('dialog');
         dialog.showModal();
+        const title = document.querySelector('.title');
+        title.focus();
     }
 }
 
