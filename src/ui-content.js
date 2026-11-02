@@ -92,7 +92,7 @@ function createTodoFormDisplay() {
     dialog.innerHTML = '';
     dialog.innerHTML = `<form action="">
             <div class='dialog-exit-container'>
-                <button class='exit'>${exitSVG}</button>
+                <button type='button' class='exit'>${exitSVG}</button>
             </div>
             <h2>Add a new todo</h2>
             <label for="title">Title:
@@ -135,7 +135,7 @@ function createProjectFormDisplay() {
     dialog.innerHTML = '';
     dialog.innerHTML = ` <form action="">
             <div class='dialog-exit-container'>
-                <button class='exit'>${exitSVG}</button>
+                <button type='button' class='exit'>${exitSVG}</button>
             </div>
             <h2>Add a project</h2>
             <label for="name">Name:

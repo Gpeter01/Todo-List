@@ -137,4 +137,11 @@ function executeDialogClick(event) {
     }
 }
 
-export {executeNavigationBoxClick, executeDialogClick, executeTodoBoxClick, closeDialog }
+function executeEnterClick(event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+        return;
+    }
+}
+
+export {executeNavigationBoxClick, executeDialogClick, executeTodoBoxClick, closeDialog, executeEnterClick }
