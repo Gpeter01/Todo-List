@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'MyRoboto';
+    src: url('fonts/roboto-variablefont_wdthwght-webfont.woff2') format('woff2');
+    font-display: swap;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -8,25 +14,38 @@
 :root {
     --bg-color: rgba(250, 249, 227, 0.3);
     --default-text-color: rgba(0, 0, 0, 0.8);
+    --header-color: rgba(0, 0, 0, 0.9);
+    --nav-text-color: rgba(0, 0, 0, 0.8);
+    --todo-title-color: rgba(0, 0, 0, 0.75);
+    --todo-body-color: rgba(0, 0, 0, 0.65);
     --priority-black: rgb(0, 0, 0);
-    --priority-red: rgba(255, 0, 0, 0.85);
-    --priority-orange: rgb(255, 165, 0);
-    --green: rgb(0, 255, 0);
-    --teal: teal;
-    --green: green;
-    --purple: purple;
-    --orange: orange;
-    --blue: blue;
+    --priority-red: rgba(150, 0, 0, 0.85);
+    --priority-orange: rgb(230, 140, 0);
+    --teal: rgb(0, 128, 128);
+    --green: rgb(0, 128, 0);
+    --purple: rgb(128, 0, 128);
+    --orange: rgb(255, 165, 0);
+    --blue: rgb(0, 0, 128);
+    /* TEXT */
+    --additional-info: 0.875rem;
+    --default-text-size: 1rem;
+    --section-header-size: 1.12rem;
+    --todo-title: 1.25rem;
+    --todolist-name: 1.5rem;
+    --header-text: 2rem;
+    /* STATE */
+    --current-position: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 
 body {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: max-content 1fr;
-    min-height: 100vh;
+    height: 100vh;
+    max-height: 100vh;
     width: 100%;
     background-color: var(--bg-color);
-    font-family: 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: MyRoboto, 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: var(--default-text-color);
 }
 
@@ -36,7 +55,7 @@ header {
     padding: 0.5rem 1rem;
     background-color: transparent;
     position: sticky;
-    border-bottom: 1px solid black;
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.15)
 }
 
 .header-button-container {
@@ -47,16 +66,13 @@ header {
 }
 
 header button, .reset {
-    font-family: 'Times New Roman', Times, serif;
-    font-style: italic;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.1rem;
     padding: 1rem;
 }
 
 svg {
-    height: 100%;
-    width: 100%;
+    /* height: 100%;
+    width: 100%; */
     fill: inherit;
     stroke: inherit;
 }
@@ -71,28 +87,35 @@ span {
 }
 
 h1 {
-    font-style: italic;
-    font-size: 3rem;
-    font-weight: 500;
     display: inline;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    font-size: var(--header-text, 3rem);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
 }
 
 main {
     display: grid;
     grid-template-columns: 25vw 1fr;
     grid-template-rows: 1fr;
+    min-height: 0;
 }
+
 .navigation-box, .todo-box {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: max-content 1fr;
-    border: 1px solid black;
+    min-height: 0;
 }
 
 .button-container {
     display: flex;
-    padding: 0.5rem;
+    padding: 0.75rem 0.5rem;
     justify-content: flex-end;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08)
 }
 
 .button-svg {
@@ -101,17 +124,27 @@ main {
 }
 
 button {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
     display: flex;
     align-items: center;
     height: fit-content;
     gap: 5px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
     border-radius: 5px;
     color: black;
     background-color: transparent;
     border: 1px solid black;
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.15)
+}
+
+button:hover {
+    box-shadow: var(--current-position);
+}
+.todo-container button {
+    font-size: 0.8rem;
 }
 
 nav, .todo-container {
@@ -120,75 +153,103 @@ nav, .todo-container {
     justify-content: flex-start;
     align-items: center;
     gap: 0.5rem;
-    padding: 0 0.5rem 0.5rem;
-    overflow: scroll;
+    padding: 0.5rem 0.75rem 0.75rem;
+    min-height: 0;
+    overflow: auto;
 }
 
 nav > div, .todo-container > * {
     display: flex;
     align-items: center;
+    height: fit-content;
     border-radius: 1rem;
     border: 1px solid black;
     padding: 1rem;
     width: 100%;
-    height: fit-content;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    color: var(--nav-text-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .navigation-svg {
-    height: 2rem;
-    width: 2rem;
-    margin-right: 0.5rem;
+    min-height: 2rem;
+    min-width: 2rem;
+    margin-right: 0.75rem;
 }
 
 h2 {
     display: inline;
-    line-height: 1.5;
+    line-height: 1.32;
+    font-size: var(--todolist-name);
 }
 
 h3 {
-    font-size: 1.25rem;
+    font-size: var(--todo-title, 1.25rem);
     line-height: 1.5;
+    color: var(--todo-title-color);
 }
 
 h2, h3, h4 {
     font-weight: 500;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
 }
 
 h4 {
+    font-size: var(--section-header-size);
     line-height: 1.5;
 }
 
 .todo-container {
-    gap: 0.25rem;
-    padding: 0;
-}
-
-.todo-container h5 {
-    line-height: 1.5;
+    gap: 0.5rem;
+    border-left: 1px solid black;
 }
 
 .todo-container > * {
     display: block;
-    padding: 0.5rem;
-    border-radius: 0;
+    border-radius: 10px;
+}
+
+.todo-container > *:hover {
+    box-shadow:var(--current-position);
 }
 
 .todo-container > * p {
-    color: rgba(0, 0, 0, 0.8);
+    font-size: var(--default-text-size);
+    margin-bottom: 0.5rem;
 }
 
-.expand p {
-    color: rgba(0, 0, 0, 0.8);
+.todo-container h3 {
+    font-weight: 600;
+}
+
+p.expand{
+    color: var(--todo-body-color);
     margin-bottom: 1rem;
 }
 
 p.priority {
     display: inline;
     font-weight: bold;
-    margin-bottom: 0;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+}
+
+p.priority::before {
+    content: '.';
+    line-height: 0;
+    font-size: 5rem;
+    margin-left: 5px;
+}
+p.high {
+    color: var(--priority-red);
+}
+
+p.medium {
+    color: var(--priority-orange);
+}
+
+p.low {
+    color: var(--priority-black);
 }
 
 dialog {
@@ -199,6 +260,7 @@ dialog {
     border-radius: 1rem;
     position: fixed;
     border: 1px solid transparent;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 dialog::backdrop {
@@ -251,6 +313,13 @@ textarea {
     background-color: black;
 }
 /* PROJECT COLORS */
+div {
+    transition: background-color 300ms ease-in-out, box-shadow 400ms ease;
+}
+
+nav > *:hover{
+    box-shadow:var(--current-position);
+}
 
 .orange.navigation-svg {
     fill: var(--orange);
@@ -261,14 +330,23 @@ div.orange {
     border: 1px solid var(--orange);
 }
 
+.orange:hover {
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
 .blue.navigation-svg {
     fill: var(--blue);
     stroke: var(--blue);
 }
 
+.blue:hover {
+    background-color: rgba(0, 0, 128, 0.1);
+}
+
 div.blue {
     border: 1px solid var(--blue);
 }
+
 
 .teal.navigation-svg {
     fill: var(--teal);
@@ -277,6 +355,10 @@ div.blue {
 
 div.teal {
     border: 1px solid var(--teal);
+}
+
+.teal:hover {
+    background-color: rgba(0, 128, 128, 0.1);
 }
 
 .purple.navigation-svg {
@@ -288,6 +370,10 @@ div.purple {
     border: 1px solid var(--purple);
 }
 
+.purple:hover {
+    background-color: rgba(128, 0, 128, 0.1);
+}
+
 .green.navigation-svg {
     fill: var(--green);
     stroke: var(--green);
@@ -297,14 +383,29 @@ div.green {
     border: 1px solid var(--green);
 }
 
-[data-index][data-project-index] > div {
-    width: 90%;
-    display: inline-flex;
-    justify-content: flex-end;
-    gap: 1.5rem;
+.green:hover {
+    background-color: rgba(0, 128, 0, 0.1);
 }
 
-[data-index][data-project-index] > div > button {
+[data-index][data-project-index] > div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+}
+
+.priority-container {
+    display: flex;
+    align-items: center;
+}
+
+.todo-button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    padding-inline-end: 3rem;
+}
+
+[data-index][data-project-index] > div > div > button {
     cursor: pointer;
 }
 
@@ -340,4 +441,8 @@ dialog p {
     padding: 0.5rem 2rem;
     color: red;
     margin-top: 1rem;
+}
+
+.is-active {
+    box-shadow:var(--current-position);
 }

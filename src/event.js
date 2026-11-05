@@ -15,6 +15,7 @@ function executeNavigationBoxClick(event) {
     }
     const navElement = event.target.closest('[data-index]');
     if (navElement) {
+        navElement.classList.add('is-active');
         const index = Number(navElement.dataset.index);
         const todoContainer = document.querySelector('.todo-container');
         const button = document.querySelector('.todo-box [data-action]');
