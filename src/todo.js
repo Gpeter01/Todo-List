@@ -67,8 +67,11 @@ class TodoList {
 }
 
 class Todo {
-    constructor(title, description, priority, notes) {
+    constructor(title, dueDate, description, priority, notes, dateValue, timeValue) {
         this.title = title;
+		this.dueDate = dueDate;
+		this.dateValue = dateValue;
+		this.timeValue = timeValue;
         this.description = description;
         this.priority = priority;
         this.notes = notes;
@@ -84,16 +87,16 @@ function initialiseProjects() {
 	projects.push(productivity);
 
 	// INITIALIZE PLACEBO TODO ITEM
-	const firstTodo = new Todo('First in its bloodline', 'I really am', 'High', 'This is my delusion, it is my reality');
+	const firstTodo = new Todo('First in its bloodline', {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'I really am', 'High', 'This is my delusion, it is my reality');
 	personal.array.push(firstTodo);
 
-	const secondTodo = new Todo('Imagination', 'The world has not imagined it yet', 'High', 'I am stoked man');
+	const secondTodo = new Todo('Imagination',  {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'The world has not imagined it yet', 'High', 'I am stoked man');
 	personal.array.push(secondTodo);
 
-	const thirdTodo = new Todo('This is the third one', 'what were you thinking?', 'High', 'LOLZ');
+	const thirdTodo = new Todo('This is the third one',  {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'what were you thinking?', 'High', 'LOLZ');
 	personal.array.push(thirdTodo);
 
-	const productivityTodo = new Todo('I have to stay healthy so i guess that much is important', 'really important', 'Medium', 'I am gonna own the top of the world');
+	const productivityTodo = new Todo('I have to stay healthy so i guess that much is important',  {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'really important', 'Medium', 'I am gonna own the top of the world');
 	productivity.array.push(productivityTodo);
 }
 

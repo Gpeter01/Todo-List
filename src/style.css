@@ -446,3 +446,8 @@ dialog p {
 .is-active {
     box-shadow:var(--current-position);
 }
+
+[data-action='contract'] {
+    color: white;
+    background-color: black;
+}

@@ -1,6 +1,8 @@
 import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand, contract, editTodo, aboutThisProject } from "./ui-content.js";
 import { projects, svgArray, TodoList, Todo } from "./todo.js";
 import { pushToStorage } from "./storage.js";
+import { getDateOfThisMoment, getTimeOfThisMoment, getCurrentDate } from "./time.js";
+import { dateCheck } from "./errorCheck.js";
 
 function executeNavigationBoxClick(event) {
     const button = event.target.closest('[data-action]');
@@ -84,11 +86,19 @@ function closeDialog(event) {
 }
 
 function executeDialogClick(event) {
-    const button = event.target.closest('[data-add]');
-    if (!button) {
+    const dialogElement = event.target.closest('[data-add]');
+    if (!dialogElement) {
         return;
     }
-    if (button.dataset.add === 'project') {
+    if (dialogElement.dataset.add === 'date-min') {
+        dialogElement.min = getDateOfThisMoment();
+        return;
+    }
+    if (dialogElement.dataset.add === 'time-min') {
+        dialogElement.min = getTimeOfThisMoment();
+        return;
+    }
+    if (dialogElement.dataset.add === 'project') {
         const projectName = document.querySelector('.name');
         const color = document.querySelector('.color');
         const theme = document.querySelector('.theme');
@@ -103,18 +113,31 @@ function executeDialogClick(event) {
         const dialog = document.querySelector('dialog');
         dialog.close();
     }
+    if (dialogElement.dataset.add === 'reset') {
+        localStorage.clear();
+    
+        // CLOSE DIALOG
+        const dialog = document.querySelector('dialog');
+        dialog.close();
+    }
     const title = document.querySelector('form .title');
     const description = document.querySelector('form .description');
     const notes = document.querySelector('form .notes');
     const priority = document.querySelector('form .priority');
+    const dueDate = document.querySelector('form .due-date');
+    const dueTime = document.querySelector('form .due-time');
 
-    if (button.dataset.add === 'todo') {
+    if (dialogElement.dataset.add === 'todo') {
         const button = document.querySelector('.todo-box [data-action]');
-        projects[Number(button.dataset.index)].array.push(new Todo(title.value, description.value, priority.value, notes.value));
         
+        dateCheck(getCurrentDate(dueDate.value, dueTime.value, '-', ':'));
+
+        console.log(dueTime.value, dueDate.value);
+        projects[Number(button.dataset.index)].array.push(new Todo(title.value, getCurrentDate(dueDate.value, dueTime.value, '-', ':'), description.value, priority.value, notes.value, dueDate.value, dueTime.value));
+        console.log(projects[Number(button.dataset.index)].array)
+        pushToStorage('storage', projects);
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
-        pushToStorage('storage', projects);
         iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
         
         // CLOSE DIALOG
@@ -122,24 +145,17 @@ function executeDialogClick(event) {
         dialog.close();
         
     }
-    if (button.dataset.add === 'edit') {
+    if (dialogElement.dataset.add === 'edit') {
         const button = document.querySelector('.todo-box [data-action]');
         const formButton = document.querySelector('.save');
         
-        projects[Number(button.dataset.index)].array[formButton.dataset.editIndex] = new Todo(title.value, description.value, priority.value, notes.value);
+        projects[Number(button.dataset.index)].array[formButton.dataset.editIndex] = new Todo(title.value, getCurrentDate(dueDate.value, dueTime.value, '-', ':'), description.value, priority.value, notes.value, dueDate.value, dueTime.value);
         
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
         pushToStorage('storage', projects);
         iterateArray(projects[Number(button.dataset.index)].array, renderTodoContent);
         
-        // CLOSE DIALOG
-        const dialog = document.querySelector('dialog');
-        dialog.close();
-    }
-    if (button.dataset.add === 'reset') {
-        localStorage.clear();
-
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
         dialog.close();

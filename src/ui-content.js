@@ -1,4 +1,5 @@
 import { projects } from "./todo.js";
+import { formatDate, approximate } from "./time.js";
 
 function renderNavigationContent(project, index) {
     const currentProject = document.createElement('div');
@@ -27,7 +28,8 @@ function renderNavigationContent(project, index) {
 function renderTodoContent(todo, index) {
     const currentTodo = document.createElement('div');
     const title = document.createElement('h3');
-    const description = document.createElement('p');
+    const dueDate = document.createElement('p');
+    const approximation = document.createElement('p');
     const priority = document.createElement('p');
     const priorityContainer = document.createElement('div');
     const container = document.createElement('div');
@@ -42,7 +44,8 @@ function renderTodoContent(todo, index) {
     const parentContainer = document.querySelector('.todo-container');
     parentContainer.appendChild(currentTodo);
     currentTodo.appendChild(title);
-    currentTodo.appendChild(description);
+    currentTodo.appendChild(dueDate);
+    currentTodo.appendChild(approximation);
     currentTodo.appendChild(container);
     container.appendChild(priorityContainer);
     priorityContainer.appendChild(priority);
@@ -54,7 +57,6 @@ function renderTodoContent(todo, index) {
     //ADD CLASS NAME
     priority.classList.add(todo.priority.toLowerCase());
     priority.classList.add('priority');
-    description.classList.add('description');
     buttonContainer.classList.add('todo-button-container');
     priorityContainer.classList.add('priority-container')
 
@@ -67,7 +69,8 @@ function renderTodoContent(todo, index) {
     
     //ADD CONTENT
     title.textContent = todo.title;
-    description.textContent = todo.description;
+    dueDate.textContent = `dueDate: ${formatDate(todo.dueDate)}`;
+    approximation.textContent = `${approximate(todo.dueDate)}`;
     priority.textContent = todo.priority;
     expandButton.textContent = 'Expand';
     deleteButton.textContent = 'Delete';
@@ -109,6 +112,12 @@ function createTodoFormDisplay() {
             </label>
             <label for="notes">Notes:
                 <textarea name="notes" class="notes"></textarea>
+            </label>
+            <label for='due-date'>Due date:
+                <input type='date' data-add='date-min' name='due-date' class='due-date'>
+            </label>
+            <label for='due-time'>Time:
+                <input type='time' data-add='time-min' name='due-time' class='due-time'>
             </label>
             <label for="priority">Priority:
                 <select name="priority" class="priority">
@@ -174,6 +183,7 @@ function createProjectFormDisplay() {
 
 function expand(todo, element) {
     const h3 = document.createElement('h3');
+    const dueDate = document.createElement('p');
     const description = document.createElement('h4');
     const descriptionDetails = document.createElement('p');
     const notes = document.createElement('h4');
@@ -188,6 +198,7 @@ function expand(todo, element) {
 
     element.innerHTML = '';
     element.appendChild(h3);
+    element.appendChild(dueDate);
     element.appendChild(description);
     element.appendChild(descriptionDetails);
     element.appendChild(notes);
@@ -213,6 +224,7 @@ function expand(todo, element) {
     
     
     h3.textContent = todo.title;
+    dueDate.textContent = `dueDate: ${formatDate(todo.dueDate)}`;
     description.textContent = 'Description:';
     descriptionDetails.textContent = todo.description;
     notes.textContent = 'Notes:';
@@ -225,6 +237,8 @@ function expand(todo, element) {
 
 function contract(todo, element) {
     const title = document.createElement('h3');
+    const dueDate = document.createElement('p');
+    const approximation = document.createElement('p');
     const description = document.createElement('p');
     const priority = document.createElement('p');
     const buttonContainer = document.createElement('div');
@@ -240,7 +254,8 @@ function contract(todo, element) {
     element.classList.toggle('is-active');
     element.innerHTML = '';
     element.appendChild(title);
-    element.appendChild(description);
+    element.appendChild(dueDate);
+    element.appendChild(approximation);
     element.appendChild(container);
     container.appendChild(priorityContainer);
     priorityContainer.appendChild(priority);
@@ -263,7 +278,8 @@ function contract(todo, element) {
 
     //ADD CONTENT
     title.textContent = todo.title;
-    description.textContent = todo.description;
+    dueDate.textContent = `dueDate: ${formatDate(todo.dueDate)}`;
+    approximation.textContent = `${approximate(todo.dueDate)}`;
     priority.textContent = todo.priority;
     expandButton.textContent = 'Expand';
     deleteButton.textContent = 'Delete';
@@ -279,12 +295,16 @@ function editTodo(index, parentIndex) {
     const description = document.querySelector('form .description');
     const notes = document.querySelector('form .notes');
     const priority = document.querySelector('form .priority');
+    const dueTime = document.querySelector('form .due-time');
+    const dueDate = document.querySelector('form .due-date');
     
     const currentTodo = projects[parentIndex].array[index];
     title.value = currentTodo.title;
     description.value = currentTodo.description;
     notes.value = currentTodo.notes;
     priority.value = currentTodo.priority;
+    dueDate.value = currentTodo.dateValue;
+    dueTime.value = currentTodo.timeValue;
 
     const button = document.querySelector('.save');
     button.textContent = 'Save Changes';
