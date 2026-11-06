@@ -121,11 +121,13 @@ function createTodoFormDisplay() {
             </label>
             <label for="priority">Priority:
                 <select name="priority" class="priority">
+                    <option value="null">Select</option>
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
                     <option value="Low">Low</option>
                 </select>
             </label>
+            <p class='info'><p>
             <button class='save' type="button">Save</button>
         </form>`;
 
@@ -154,11 +156,11 @@ function createProjectFormDisplay() {
             </div>
             <h2>Add a project</h2>
             <label for="name">Name:
-                <input type="text" class="name" name="name">
+                <input type="text" class="name" name="name" placeholder='Work'>
             </label>
             <label for="color">Color:
                 <select name="color" class="color">
-                    <option value="">Choose a color</option>
+                    <option value="null">Choose a color</option>
                     <option value="orange">Orange</option>
                     <option value="teal">Teal</option>
                     <option value="purple">Purple</option>
@@ -166,13 +168,14 @@ function createProjectFormDisplay() {
             </label>
             <label for="theme">Theme:
                 <select name="theme" class="theme">
-                    <option value="">Choose a theme</option>
+                    <option value="null">Choose a theme</option>
                     <option value="0">Health</option>
                     <option value="1">Work</option>
                     <option value="2">Grocery</option>
                     <option value="3">Private</option>
                 </select>
             </label>
+            <p class='info'><p>
             <button class='save' type="button">Save</button>
         </form>`;
     const cancelButton = document.querySelector('.exit');
@@ -355,4 +358,11 @@ function aboutThisProject() {
     const resetButton = document.querySelector('.reset');
     resetButton.dataset.add = 'reset';
 }
-export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract, editTodo, getCurrentPage, aboutThisProject }
+
+function capitaliseFirstLetter(value) {
+    const firstLetter = value.trim().charAt(0).toUpperCase();
+    const rest = value.trim().slice(1);
+    return `${firstLetter}${rest}`;
+}
+
+export { renderNavigationContent, renderTodoContent, iterateArray, createProjectFormDisplay, createTodoFormDisplay, expand, contract, editTodo, getCurrentPage, aboutThisProject, capitaliseFirstLetter }

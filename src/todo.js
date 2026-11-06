@@ -102,6 +102,7 @@ function initialiseProjects() {
 
 function populate() {
 	if (localStorage.getItem('storage') == null) {
+		projects = [];
 		initialiseProjects();
 		return;
 	}
@@ -111,4 +112,4 @@ function populate() {
 populate();
 
 
-export { projects, svgArray, TodoList, Todo };
+export { projects, svgArray, TodoList, Todo, populate };

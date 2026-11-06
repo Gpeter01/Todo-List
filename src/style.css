@@ -128,6 +128,7 @@ button {
     font-style: italic;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: fit-content;
     gap: 5px;
     font-size: 0.95rem;
@@ -240,6 +241,7 @@ p.priority::before {
     font-size: 5rem;
     margin-left: 5px;
 }
+
 p.high {
     color: var(--priority-red);
 }
@@ -297,21 +299,27 @@ textarea {
     display: block;
     width: 100%;
     margin-top: 3px;
-    height: 7rem;
     resize: vertical;
+}
+
+textarea.description {
+    height: 5rem;
+}
+
+textarea.notes {
+    height: 7rem;
 }
 
 .save {
     font-size: 1rem;
-    font-weight: 600;
     font-style: italic;
-    margin:  3rem auto 0;
     width: 100%;
     padding: 1rem;
     border-radius: 999px;
     color: white;
     background-color: black;
 }
+
 /* PROJECT COLORS */
 div {
     transition: background-color 300ms ease-in-out, box-shadow 400ms ease;
@@ -450,4 +458,11 @@ dialog p {
 [data-action='contract'] {
     color: white;
     background-color: black;
+}
+
+.info {
+    color: red;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
 }

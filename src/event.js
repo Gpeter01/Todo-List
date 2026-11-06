@@ -1,8 +1,8 @@
-import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, expand, contract, editTodo, aboutThisProject } from "./ui-content.js";
-import { projects, svgArray, TodoList, Todo } from "./todo.js";
+import { createProjectFormDisplay, createTodoFormDisplay, renderTodoContent, renderNavigationContent, iterateArray, getCurrentPage, expand, contract, editTodo, aboutThisProject, capitaliseFirstLetter } from "./ui-content.js";
+import { projects, svgArray, TodoList, Todo, populate } from "./todo.js";
 import { pushToStorage } from "./storage.js";
 import { getDateOfThisMoment, getTimeOfThisMoment, getCurrentDate } from "./time.js";
-import { dateCheck } from "./errorCheck.js";
+import { dateCheck, checkProjectName, dropdownCheck, checkTodo } from "./errorCheck.js";
 
 function executeNavigationBoxClick(event) {
     const button = event.target.closest('[data-action]');
@@ -64,6 +64,7 @@ function executeTodoBoxClick(event) {
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
         iterateArray(projects[Number(todo.dataset.projectIndex)].array, renderTodoContent);
+        return;
     }
     if (button.dataset.action === 'edit') {
         const todo = event.target.closest('[data-index][data-project-index]');
@@ -73,6 +74,7 @@ function executeTodoBoxClick(event) {
         dialog.showModal();
         const title = document.querySelector('.title');
         title.focus();
+        return;
     }
 }
 
@@ -102,8 +104,19 @@ function executeDialogClick(event) {
         const projectName = document.querySelector('.name');
         const color = document.querySelector('.color');
         const theme = document.querySelector('.theme');
-        
-        projects.push(new TodoList(projectName.value, color.value, svgArray[Number(theme.value)]));
+
+        // CHECKS
+        if (checkProjectName(projectName.value)) {
+            return;
+        }
+        if (dropdownCheck(color.value, 'Pick a color.')) {
+            return;
+        }
+        if (dropdownCheck(theme.value, 'You are almost there, pick a theme.')) {
+            return;
+        }
+
+        projects.push(new TodoList(capitaliseFirstLetter(projectName.value), color.value, svgArray[Number(theme.value)]));
         const navigationContainer = document.querySelector('nav');
         navigationContainer.innerHTML = '';
         pushToStorage('storage', projects);
@@ -112,13 +125,23 @@ function executeDialogClick(event) {
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
         dialog.close();
+        return;
     }
     if (dialogElement.dataset.add === 'reset') {
         localStorage.clear();
-    
+        
+        const navBox = document.querySelector('nav');
+        navBox.innerHTML = '';
+        const todoContainer = document.querySelector('.todo-container');
+        todoContainer.innerHTML = '';
+        populate();
+        iterateArray(projects, renderNavigationContent);
+        getCurrentPage();
+
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
         dialog.close();
+        return;
     }
     const title = document.querySelector('form .title');
     const description = document.querySelector('form .description');
@@ -127,14 +150,28 @@ function executeDialogClick(event) {
     const dueDate = document.querySelector('form .due-date');
     const dueTime = document.querySelector('form .due-time');
 
+    if (checkTodo(title.value, 'Enter a title for the todo')) {
+        return;
+    }
+    if (checkTodo(description.value, 'Enter text into the description box')) {
+        return;
+    }
+    if (checkTodo(notes.value, 'Enter text into the notes box')) {
+        return;
+    }
+    if (dateCheck(getCurrentDate(dueDate.value, dueTime.value, '-', ':'))) {
+        return;
+    }
+    if (dropdownCheck(priority.value, 'Select a priority')) {
+        return;
+    }
     if (dialogElement.dataset.add === 'todo') {
         const button = document.querySelector('.todo-box [data-action]');
-        
-        dateCheck(getCurrentDate(dueDate.value, dueTime.value, '-', ':'));
+        dueDate.min = getDateOfThisMoment();
+        dueTime.min = getTimeOfThisMoment();
 
-        console.log(dueTime.value, dueDate.value);
-        projects[Number(button.dataset.index)].array.push(new Todo(title.value, getCurrentDate(dueDate.value, dueTime.value, '-', ':'), description.value, priority.value, notes.value, dueDate.value, dueTime.value));
-        console.log(projects[Number(button.dataset.index)].array)
+
+        projects[Number(button.dataset.index)].array.push(new Todo(capitaliseFirstLetter(title.value), getCurrentDate(dueDate.value, dueTime.value, '-', ':'), capitaliseFirstLetter(description.value), priority.value, capitaliseFirstLetter(notes.value), dueDate.value, dueTime.value));
         pushToStorage('storage', projects);
         const todoContainer = document.querySelector('.todo-container');
         todoContainer.innerHTML = '';
@@ -143,6 +180,7 @@ function executeDialogClick(event) {
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
         dialog.close();
+        return;
         
     }
     if (dialogElement.dataset.add === 'edit') {
@@ -159,6 +197,7 @@ function executeDialogClick(event) {
         // CLOSE DIALOG
         const dialog = document.querySelector('dialog');
         dialog.close();
+        return;
     }
 }
 
