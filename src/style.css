@@ -225,7 +225,6 @@ h4 {
 
 p.expand{
     color: var(--todo-body-color);
-    margin-bottom: 1rem;
 }
 
 p.priority {
@@ -233,6 +232,8 @@ p.priority {
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
     font-style: italic;
+    margin-bottom: 0;
+    line-height: 1.5;
 }
 
 p.priority::before {
@@ -395,10 +396,12 @@ div.green {
     background-color: rgba(0, 128, 0, 0.1);
 }
 
-[data-index][data-project-index] > div {
+.bottom-container {
     width: 100%;
+    height: fit-content;
     display: grid;
     grid-template-columns: max-content 1fr;
+    grid-template-rows: 1fr;
 }
 
 .priority-container {
@@ -409,6 +412,7 @@ div.green {
 .todo-button-container {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 2rem;
     padding-inline-end: 3rem;
 }
@@ -465,4 +469,28 @@ dialog p {
     text-align: center;
     font-size: 0.9rem;
     font-weight: 600;
+}
+
+.isDue {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    color: black;
+    font-size: 1.1rem;
+}
+
+.isDue::after, .isDue::before {
+    content: '.';
+    display: inline-block;
+    color: var(--todo-body-color);
+    font-size: 3rem;
+    line-height: 0;
+    margin-bottom: 1rem;
+}
+
+.isDue::after {
+    transform: translate(4px, -2px);
+}
+
+.isDue::before {
+    transform: translate(-2px, -2px);
 }

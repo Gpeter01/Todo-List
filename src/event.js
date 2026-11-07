@@ -159,6 +159,8 @@ function executeDialogClick(event) {
     if (checkTodo(notes.value, 'Enter text into the notes box')) {
         return;
     }
+    dueDate.min = getDateOfThisMoment();
+    dueTime.min = getTimeOfThisMoment();
     if (dateCheck(getCurrentDate(dueDate.value, dueTime.value, '-', ':'))) {
         return;
     }
@@ -167,8 +169,6 @@ function executeDialogClick(event) {
     }
     if (dialogElement.dataset.add === 'todo') {
         const button = document.querySelector('.todo-box [data-action]');
-        dueDate.min = getDateOfThisMoment();
-        dueTime.min = getTimeOfThisMoment();
 
 
         projects[Number(button.dataset.index)].array.push(new Todo(capitaliseFirstLetter(title.value), getCurrentDate(dueDate.value, dueTime.value, '-', ':'), capitaliseFirstLetter(description.value), priority.value, capitaliseFirstLetter(notes.value), dueDate.value, dueTime.value));
