@@ -270,9 +270,6 @@ function contract(todo, element) {
     const priorityContainer = document.createElement('div');
     const container = document.createElement('div');
     
-    
-    const button = document.querySelector('.todo-box [data-action]');
-    
     element.classList.toggle('is-active');
     element.innerHTML = '';
     element.appendChild(title);
@@ -337,7 +334,7 @@ function getCurrentPage() {
         button.dataset.index = '0';
 
         // DISPLAY TODOS
-        // DEFAULT PROJECT SHOULD BE PERSONAL FOR THIS CASE
+        // DEFAULT PROJECT SHOULD BE THE PERSONAL TODOLIST FOR THIS CASE
         iterateArray(projects[0].array, renderTodoContent);
         return;
     }

@@ -89,19 +89,6 @@ function initialiseProjects() {
 	projects.push(personal);
 	const productivity = new TodoList('Productivity', 'green', productivitySVG);
 	projects.push(productivity);
-
-	// INITIALIZE PLACEBO TODO ITEM
-	const firstTodo = new Todo('First in its bloodline', {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'I really am', 'High', 'This is my delusion, it is my reality');
-	personal.array.push(firstTodo);
-
-	const secondTodo = new Todo('Imagination',  {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'The world has not imagined it yet', 'High', 'I am stoked man');
-	personal.array.push(secondTodo);
-
-	const thirdTodo = new Todo('This is the third one',  {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'what were you thinking?', 'High', 'LOLZ');
-	personal.array.push(thirdTodo);
-
-	const productivityTodo = new Todo('I have to stay healthy so i guess that much is important',  {year: 2022, month: 2, day:2 , hour:2 , minute: 2}, 'really important', 'Medium', 'I am gonna own the top of the world');
-	productivity.array.push(productivityTodo);
 }
 
 function populate() {

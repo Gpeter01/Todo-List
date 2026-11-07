@@ -43,7 +43,7 @@ function formatDate(date) {
 function approximate(date) {
     const currentDate = new Date(date.year, Number(date.month) - 1, Number(date.day), date.hour, date.minute);
     const approximation = formatDistanceToNowStrict(currentDate);
-    return `appoximately ${approximation} from now`;
+    return `appoximately ${approximation}`;
 }
 
 export { getDateOfThisMoment, getTimeOfThisMoment, getCurrentDate, formatDate, approximate};

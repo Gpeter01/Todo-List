@@ -12,7 +12,7 @@ function checkProjectName(value) {
     for (let i = 0; i < string.length; i++) {
         if (string.charAt(i) == ' ') {
             const info = document.querySelector('.info');
-            info.textContent = 'Your project name should be short and memorable.';
+            info.textContent = 'Your project name should be short and memorable, just a meaningful word should suffice.';
             return true;
         }
     }
