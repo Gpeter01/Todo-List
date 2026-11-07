@@ -32,14 +32,14 @@ function renderTodoTime(date, currentTodo) {
         const due = document.createElement('p');
         currentTodo.appendChild(due);
         due.classList.add('isDue');
-        due.textContent = 'Due';
+        due.textContent = 'Todo is due';
         return;
     }
     const dueDate = document.createElement('p');
     const approximation = document.createElement('p');
     currentTodo.appendChild(dueDate);
     currentTodo.appendChild(approximation);
-    dueDate.textContent = `dueDate: ${formatDate(date)}`;
+    dueDate.textContent = `Due date: ${formatDate(date)}`;
     approximation.textContent = `${approximate(date)}`;
 }
 
@@ -119,22 +119,22 @@ function createTodoFormDisplay() {
             </div>
             <h2>Add a new todo</h2>
             <label for="title">Title:
-                <input type="text" name="title" class='title' placeholder="Grocery">
+                <input type="text" name="title" class='title' placeholder="Grocery" min-length='0' required>
             </label>
             <label for="description">Description:
-                <textarea name="description" class="description"></textarea>
+                <textarea name="description" class="description" min-length='0' required></textarea>
             </label>
             <label for="notes">Notes:
-                <textarea name="notes" class="notes"></textarea>
+                <textarea name="notes" class="notes" min-length='0' required></textarea>
             </label>
             <label for='due-date'>Due date:
-                <input type='date' data-add='date-min' name='due-date' class='due-date'>
+                <input type='date' data-add='date-min' name='due-date' class='due-date' required>
             </label>
             <label for='due-time'>Time:
-                <input type='time' data-add='time-min' name='due-time' class='due-time'>
+                <input type='time' data-add='time-min' name='due-time' class='due-time' required>
             </label>
             <label for="priority">Priority:
-                <select name="priority" class="priority">
+                <select name="priority" class="priority" required>
                     <option value="null">Select</option>
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
@@ -170,23 +170,29 @@ function createProjectFormDisplay() {
             </div>
             <h2>Add a project</h2>
             <label for="name">Name:
-                <input type="text" class="name" name="name" placeholder='Work'>
+                <input type="text" class="name" name="name" placeholder='Work' required>
             </label>
             <label for="color">Color:
-                <select name="color" class="color">
+                <select name="color" class="color" required>
                     <option value="null">Choose a color</option>
                     <option value="orange">Orange</option>
                     <option value="teal">Teal</option>
                     <option value="purple">Purple</option>
+                    <option value="green">Green</option>
+                    <option value='red'>Red</option>
+                    <option value="yellow">Yellow</option>
                 </select>
             </label>
             <label for="theme">Theme:
-                <select name="theme" class="theme">
+                <select name="theme" class="theme" required>
                     <option value="null">Choose a theme</option>
                     <option value="0">Health</option>
                     <option value="1">Work</option>
                     <option value="2">Grocery</option>
                     <option value="3">Private</option>
+                    <option value="4">Food</option>
+                    <option value="5">Movies</option>
+                    <option value="6">Books</option>
                 </select>
             </label>
             <p class='info'><p>
@@ -200,7 +206,7 @@ function createProjectFormDisplay() {
 
 function expand(todo, element) {
     const h3 = document.createElement('h3');
-    const dueDate = document.createElement('p');
+    const dueDate = document.createElement('h4');
     const description = document.createElement('h4');
     const descriptionDetails = document.createElement('p');
     const notes = document.createElement('h4');
@@ -229,6 +235,7 @@ function expand(todo, element) {
     buttonContainer.appendChild(editButton);
     
     element.classList.toggle('is-active');
+    dueDate.classList.add('date');
     descriptionDetails.classList.toggle('expand');
     notesDetails.classList.toggle('expand');
     container.classList.add('bottom-container');
@@ -242,7 +249,7 @@ function expand(todo, element) {
     
     
     h3.textContent = todo.title;
-    dueDate.textContent = `dueDate: ${formatDate(todo.dueDate)}`;
+    dueDate.textContent = `${formatDate(todo.dueDate)}`;
     description.textContent = 'Description:';
     descriptionDetails.textContent = todo.description;
     notes.textContent = 'Notes:';
@@ -356,8 +363,8 @@ function aboutThisProject() {
                 <button type='button' class='exit'>${exitSVG}</button>
         </div>
         <h2>About this project</h2>
-        <p>This is a really amazing project, it's a really nice todolist. It has room to grow.</p>
-        <p>The svgs you see here are gotten from .....</p>
+        <p>This is a really amazing project I am sure you will enjoy using, it's a really nice todolist and still has room to grow.</p>
+        <p>The svgs you see on this app are gotten from <a href='https://www.svgrepo.com'>svgrepo</a></p>
         <p>To reset the todolist app to factory setting, click below. Be careful, there is no going back.</p>
         <button class="reset">Reset to factory setting</button>`;
 

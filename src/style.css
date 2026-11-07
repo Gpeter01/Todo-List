@@ -14,8 +14,8 @@
 :root {
     --bg-color: rgba(250, 249, 227, 0.3);
     --default-text-color: rgba(0, 0, 0, 0.8);
-    --header-color: rgba(0, 0, 0, 0.9);
-    --nav-text-color: rgba(0, 0, 0, 0.8);
+    --header-color: rgba(0, 0, 0, 0.95);
+    --nav-text-color: rgba(0, 0, 0, 0.85);
     --todo-title-color: rgba(0, 0, 0, 0.75);
     --todo-body-color: rgba(0, 0, 0, 0.65);
     --priority-black: rgb(0, 0, 0);
@@ -26,6 +26,8 @@
     --purple: rgb(128, 0, 128);
     --orange: rgb(255, 165, 0);
     --blue: rgb(0, 0, 128);
+    --red:  rgb(128, 0, 0);
+    --yellow: rgba(128, 128, 0);
     /* TEXT */
     --additional-info: 0.875rem;
     --default-text-size: 1rem;
@@ -51,11 +53,16 @@ body {
 
 header {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: max-content 1fr;
     padding: 0.5rem 1rem;
     background-color: transparent;
     position: sticky;
     box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.15)
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
 }
 
 .header-button-container {
@@ -71,8 +78,6 @@ header button, .reset {
 }
 
 svg {
-    /* height: 100%;
-    width: 100%; */
     fill: inherit;
     stroke: inherit;
 }
@@ -119,8 +124,10 @@ main {
 }
 
 .button-svg {
-    height: 0.75rem;
-    width: 0.75rem;
+    display: flex;
+    align-items: center;
+    height: 0.95rem;
+    width: 0.95rem;
 }
 
 button {
@@ -169,9 +176,12 @@ nav > div, .todo-container > * {
     width: 100%;
     color: var(--nav-text-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-wrap: wrap;
 }
 
 .navigation-svg {
+    display: flex;
+    align-items: center;
     min-height: 2rem;
     min-width: 2rem;
     margin-right: 0.75rem;
@@ -224,6 +234,7 @@ h4 {
 }
 
 p.expand{
+    font-size: 0.9rem;
     color: var(--todo-body-color);
 }
 
@@ -291,6 +302,14 @@ input, select {
     padding: 5px;
     border-radius: 0.5rem;
     font-family: inherit;
+}
+
+input, select, textarea {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+}
+input:user-invalid, select:user-invalid, textarea:user-invalid {
+    outline: 1.5px solid rgb(240, 0, 0);
+    border: none;
 }
 
 textarea {
@@ -396,6 +415,32 @@ div.green {
     background-color: rgba(0, 128, 0, 0.1);
 }
 
+.red.navigation-svg {
+    fill: var(--red);
+    stroke: var(--red);
+}
+
+div.red {
+    border: 1px solid var(--red);
+}
+
+.red:hover {
+    background-color: rgba(128, 0, 0, 0.1);
+}
+
+.yellow.navigation-svg {
+    fill: var(--yellow);
+    stroke: var(--yellow);
+}
+
+div.yellow {
+    border: 1px solid var(--yellow);
+}
+
+.yellow:hover {
+    background-color: rgba(128, 128, 0, 0.1);
+}
+
 .bottom-container {
     width: 100%;
     height: fit-content;
@@ -493,4 +538,9 @@ dialog p {
 
 .isDue::before {
     transform: translate(-2px, -2px);
+}
+
+.date {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
 }
