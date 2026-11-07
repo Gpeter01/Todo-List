@@ -2,8 +2,8 @@ import { formatDistanceToNowStrict } from "date-fns";
 function getDateOfThisMoment() {
     const dateInstance = new Date();
     const thisYear = String(dateInstance.getFullYear());
-    const thisMonth = String(dateInstance.getMonth() + 1);
-    const thisDay = String(dateInstance.getDay() + 1);
+    const thisMonth = String(dateInstance.getMonth() + 1).padStart(2, '0');
+    const thisDay = String(dateInstance.getDate()).padStart(2, '0');
 
     const currentDate = `${thisYear}-${thisMonth}-${thisDay}`;
     return currentDate;
@@ -11,8 +11,8 @@ function getDateOfThisMoment() {
 
 function getTimeOfThisMoment() {
     const dateInstance = new Date();
-    const thisHour = String(dateInstance.getHours());
-    const thisMinute = String(dateInstance.getMinutes());
+    const thisHour = String(dateInstance.getHours()).padStart(2, '0');
+    const thisMinute = String(dateInstance.getMinutes()).padStart(2, '0');
 
     const currentTime = `${thisHour}:${thisMinute}`;
     return currentTime;
@@ -43,7 +43,7 @@ function formatDate(date) {
 function approximate(date) {
     const currentDate = new Date(date.year, Number(date.month) - 1, Number(date.day), date.hour, date.minute);
     const approximation = formatDistanceToNowStrict(currentDate);
-    return `appoximately ${approximation}`;
+    return `approximately ${approximation}`;
 }
 
 export { getDateOfThisMoment, getTimeOfThisMoment, getCurrentDate, formatDate, approximate};
