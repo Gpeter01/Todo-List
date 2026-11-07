@@ -39,6 +39,8 @@ function renderTodoTime(date, currentTodo) {
     const approximation = document.createElement('p');
     currentTodo.appendChild(dueDate);
     currentTodo.appendChild(approximation);
+    dueDate.classList.add('default');
+    approximation.classList.add('default')
     dueDate.textContent = `Due date: ${formatDate(date)}`;
     approximation.textContent = `${approximate(date)}`;
 }
